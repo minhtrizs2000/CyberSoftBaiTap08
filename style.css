@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1{
+    margin-top: 50px;
+    color: #ffffff;
+    background-color: #6200ee;
+}
+h5{
+    color: #b00020;
+}
+p{
+    font-size: 28px;
+    font-weight: 700;
+    color: #b00020;
+}
+.btn-success{
+    background-color: #b00020;
+    border-color: #b00020;
+}
+.btn-success:hover{
+    background-color: #b00020;
+    border-color: #b00020;
+}
+.btn-success:focus,.btn-success:not(:disabled):not(.disabled).active, .btn-success:not(:disabled):not(.disabled):active, .show>.btn-success.dropdown-toggle{
+    background-color: #b00020;
+    border-color: #b00020;
+    box-shadow: 0 0 0 0.2rem #b0002085;
+}

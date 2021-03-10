@@ -222,7 +222,7 @@ document.getElementById("btnTriangle").onclick = function () {
 
 
 /**
- * HOMEWORK 4
+ * ADVANCE 1
  * 
  * 
  * khối 1: input
@@ -460,3 +460,192 @@ document.getElementById("btnDate").onclick = function () {
     document.getElementById("txtDateResult").innerHTML = "Hôm nay : ngày " + day + " tháng " + month + " năm " + year + "<hr><br>Hôm qua : ngày " + preDay + " tháng " + preMonth + " năm " + preYear + "<hr><br>Ngày mai: ngày " + nextDay + " tháng " + nextMonth + " năm " + nextYear;
 
 }
+
+
+
+/**
+ * ADVANCE 2
+ * 
+ * 
+ * khối 1: input
+ * month, year
+ * 
+ * khối 2: 
+ * _b1: khai báo, gán giá trị cho các biến input
+ * _b2: 
+ *      Kiểm tra năm nhuận:
+ * 
+ *          Nếu năm % 100 == 0
+ *              nếu năm % 400 == 0 => năm nhuận
+ *              ngược lại năm k phải năm nhuận
+ *          ngược lại
+ *              nếu năm % 4 == 0 => năm nhuận
+ *              ngược lại năm k phải năm nhuận
+ * 
+ *      nếu năm nhuận == true && tháng == 2
+ *          ngày = 29
+ *      ngược lại
+ *          switch(thang)
+ *              case 1
+ * 
+ * khối 3:
+ * ngay
+ */
+
+
+document.getElementById("btnDayOfMonth").onclick = function(){
+    var month = parseInt(document.getElementById("domMonth").value);
+    var year = document.getElementById("domYear").value;
+    var leap = true;
+
+    var day = 0;
+
+    if(year % 100 == 0){
+        if(year % 400 == 0){
+            leap = true;
+        }else{
+            leap = false;
+        }
+    }else{
+        if(year % 4 == 0){
+            leap = true;
+        }else{
+            leap = false;
+        }
+    }
+
+
+    if(leap == true && month == 2){
+        day = 29;
+    }else{
+        switch(month){
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                day = 31;
+                break;
+
+            case 2:
+                day = 28;
+                break;
+
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                day = 30;
+                break;
+
+            default:
+                console.log("Lỗi khi switch case tháng");
+        }
+    }
+
+    document.getElementById("txtDayOfMonthResult").innerHTML = "Năm " + year +" là năm nhuận? " + leap + "<br>=> Tháng " + month + " có " + day + " ngày";
+}
+
+
+
+/**
+ * ADVANCE 3
+ * 
+ * 
+ * khối 1: input
+ * num
+ * 
+ * khối 2: 
+ * _b1: khai báo, gán giá trị cho các biến input
+ * _b2: 
+ *      tạo hàm đổi số thành chữ
+ * 
+ * 
+ * khối 3:
+ * KQ
+ */
+
+document.getElementById("btnReadNum").onclick = function(){
+    var num = parseInt(document.getElementById("readNum").value);
+    var hund = Math.floor(num/100);
+    var ten = Math.floor(num/10) % 10 ;
+    var unit = num % 10;
+
+    var KQ = "";
+    console.log(hund, ten, unit);
+
+    if(num < 100 || num > 999){
+        KQ = "số không hợp lệ";
+    }else if(ten == 0 && unit == 0){
+        KQ = chuyenChu(hund) + " trăm ";
+    }else if(ten == 0){
+        KQ = chuyenChu(hund) + " trăm " + " lẻ " + chuyenChu(unit);
+    }else if(ten == 1){
+        KQ = chuyenChu(hund) + " trăm " + " mười " + chuyenChu(unit);
+    }else if(ten == 1 && unit == 5){
+        KQ = chuyenChu(hund) + " trăm " + " mười " + " lăm";
+    }else if(unit == 5){
+        KQ = chuyenChu(hund) + " trăm " + chuyenChu(ten) + " mươi " + " lăm";
+    }else{
+        KQ = chuyenChu(hund) + " trăm " + chuyenChu(ten) + " mươi " + chuyenChu(unit);
+    }
+
+    document.getElementById("txtReadNumResult").innerHTML = KQ;
+}
+
+function chuyenChu(x){
+    var so = "";
+
+    switch(x){
+        case 0:
+            so = "";
+            break;
+        case 1:
+            so = " một ";
+            break;
+        case 2:
+            so = " hai ";
+            break;
+        case 3:
+            so = " ba ";
+            break;
+        case 4:
+            so = " bốn ";
+            break;
+        case 5:
+            so = " năm ";
+            break;
+        case 6:
+            so = " sáu ";
+            break;
+        case 7:
+            so = " bảy ";
+            break;
+        case 8:
+            so = " tám ";
+            break;
+        case 9:
+            so = " chín ";
+            break;
+    }
+    return so;
+}
+
+/**
+ * ADVANCE 4
+ * 
+ * 
+ * khối 1: input
+ * num
+ * 
+ * khối 2: 
+ * _b1: khai báo, gán giá trị cho các biến input
+ * _b2: 
+ *      tạo hàm đổi số thành chữ
+ * 
+ * 
+ * khối 3:
+ * KQ
+ */

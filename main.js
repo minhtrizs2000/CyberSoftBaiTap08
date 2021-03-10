@@ -562,6 +562,15 @@ document.getElementById("btnDayOfMonth").onclick = function(){
  * _b2: 
  *      tạo hàm đổi số thành chữ
  * 
+ *      nếu num<100 || num>999 => số không hợp lệ
+ *      nếu ten == 0 && unit == 0 => ...trăm
+ *      nếu ten == 0 => ...trăm lẻ ...
+ *      nếu ten == 1 => ...trăm mười ...
+ *      nếu ten == 1 && unit == 5 => ...trăm mười lăm
+ *      nếu unit == 5 =>...trăm...mươi lăm 
+ *      nếu unit == 1 => ...trăm...mươi mốt
+ *      else => ...trăm...mươi...
+ * 
  * 
  * khối 3:
  * KQ
@@ -588,6 +597,8 @@ document.getElementById("btnReadNum").onclick = function(){
         KQ = chuyenChu(hund) + " trăm " + " mười " + " lăm";
     }else if(unit == 5){
         KQ = chuyenChu(hund) + " trăm " + chuyenChu(ten) + " mươi " + " lăm";
+    }else if(unit == 1){
+        KQ = chuyenChu(hund) + " trăm " + chuyenChu(ten) + " mươi " + " mốt";
     }else{
         KQ = chuyenChu(hund) + " trăm " + chuyenChu(ten) + " mươi " + chuyenChu(unit);
     }
@@ -638,14 +649,85 @@ function chuyenChu(x){
  * 
  * 
  * khối 1: input
- * num
+ * tenSV1
+ * x1, y1
+ * 
+ * tenSV2
+ * x2, y2
+ * 
+ * tenSV3
+ * x3, y3
+ * 
+ * xt, yt (tọa độ trường)
  * 
  * khối 2: 
  * _b1: khai báo, gán giá trị cho các biến input
  * _b2: 
- *      tạo hàm đổi số thành chữ
+ *      tạo hàm tính khoảng cách từ A -> B
+ *      
+ *      lấy 3 giá trị khoảng cách từ hàm tính kc
  * 
+ *      so sánh 3 giá trị 
+ * 
+ *      nếu sv1 > sv2 && sv1 > sv3 => in ra sv1
+ *      nếu sv2 > sv3 && sv2 > sv1 => in ra sv2
+ *      nếu sv3 > sv1 && sv3 > sv2 => in ra sv3
+ * 
+ *      nếu sv1 == sv2 && sv1 > sv3 => in ra sv1 + sv2
+ *      nếu sv1 == sv3 && sv1 > sv2 => in ra sv1 + sv3
+ *      nếu sv2 == sv3 && sv2 > sv1 => in ra sv2 + sv3
+ *      
+ *      nếu sv1 == sv2 && sv1 == sv3 => in ra cả 3 sinh viên
  * 
  * khối 3:
- * KQ
+ * tenSVXaNhat
  */
+
+document.getElementById("btnDistance").onclick = function(){
+    var name1 = document.getElementById("stu01").value;
+    var x1 = parseInt(document.getElementById("stu01X").value);
+    var y1 = parseInt(document.getElementById("stu01Y").value);
+
+    var name2 = document.getElementById("stu02").value;
+    var x2 = parseInt(document.getElementById("stu02X").value);
+    var y2 = parseInt(document.getElementById("stu02Y").value);
+
+    var name3 = document.getElementById("stu03").value;
+    var x3 = parseInt(document.getElementById("stu03X").value);
+    var y3 = parseInt(document.getElementById("stu03Y").value);
+
+    var xt = parseInt(document.getElementById("schoolX").value);
+    var yt = parseInt(document.getElementById("schoolY").value);
+
+    var dis1 = disAB(x1,y1,xt,yt);
+    var dis2 = disAB(x2,y2,xt,yt);
+    var dis3 = disAB(x3,y3,xt,yt);
+
+    if(dis1 > dis2 && dis1 > dis3){
+        document.getElementById("txtDistanceResult").innerHTML = name1 + ": " + dis1;
+    }else if(dis2 > dis1 && dis2 > dis3){
+        document.getElementById("txtDistanceResult").innerHTML = name2 + ": " + dis2;
+    }else if(dis3 > dis1 && dis3 > dis2){
+        document.getElementById("txtDistanceResult").innerHTML = name3 + ": " + dis3;
+    }else if(dis1 == dis2 && dis1 > dis3){
+        document.getElementById("txtDistanceResult").innerHTML = name1 + " = " + name2 + ": " + dis1;
+    }else if(dis1 == dis3 && dis1 > dis2){
+        document.getElementById("txtDistanceResult").innerHTML = name1 + " = " + name3 + ": " + dis1;
+    }else if(dis2 == dis3 && dis2 > dis1){
+        document.getElementById("txtDistanceResult").innerHTML = name2 + " = " + name3 + ": " + dis2;
+    }else if(dis1 == dis2 && dis1 == dis3){
+        document.getElementById("txtDistanceResult").innerHTML = name1 + " = " + name2 + " = " + name3 + ": " + dis1;
+    }else{
+        document.getElementById("txtDistanceResult").innerHTML = "Lỗi khi kiểm tra khoảng cách xa nhất";
+    }
+
+
+}
+
+function disAB(x1,y1,x2,y2){
+    var khoanCach = 0;
+
+    khoanCach = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+
+    return khoanCach;
+}
